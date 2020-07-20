@@ -1,6 +1,6 @@
 
 /* Global Variables */
-const baseURL = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?zip=';
+const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 const key = 'da228f79948f36fdf122ea422ade6296';
 
 function performAction(e) {
@@ -9,9 +9,8 @@ function performAction(e) {
   console.log(`${baseURL}${ZIP},us&appid=${key}`);
   getWeather(baseURL, ZIP, key,).then((data) => {
        postData('/addweather', {temperature: data.main.temp ,date:newDate, userResponse: fellings });
-  }).then(
-    updateUI()
-  )
+       updateUI();
+  })
 }
 
 
@@ -50,6 +49,7 @@ const getWeather = async(baseURL, ZIP, key) => {
     const res = await fetch(URL)
     try{
         const data = await res.json();
+        console.log(data);
         return data;
     }catch(error){
         console.log("error", error);
@@ -65,10 +65,9 @@ const updateUI = async () => {
     const request = await fetch('/getweather');
     try{
       const allData = await request.json();
-      console.log('Get request');
-            document.getElementById('date').innerHTML = allData.date;
-            document.getElementById('temp').innerHTML = allData.temperature;
-            document.getElementById('content').innerHTML = allData.userResponse;
+            document.getElementById('date').innerHTML = `Date: ${allData.date}`;
+            document.getElementById('temp').innerHTML = `Temperature: ${allData.temperature}`;
+            document.getElementById('content').innerHTML = `Fellings: ${allData.userResponse}`;
     }catch(error){
       console.log("error", error);
     }
