@@ -1,7 +1,7 @@
 
 /* Global Variables */
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const key = 'da228f79948f36fdf122ea422ade6296';
+const key = 'da228f79948f36fdf122ea422ade6296&units=imperial';
 
 function performAction(e) {
   const ZIP = document.getElementById('zip').value;
